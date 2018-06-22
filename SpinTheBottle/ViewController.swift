@@ -52,6 +52,7 @@ class ViewController: UIViewController {
         let rotateAnimation = CABasicAnimation()
         let randonAngle = arc4random_uniform(2160) + 1080
         //        rotateView.fromValue = 0
+//        rotateAnimation.fromValue = ????
         rotateAnimation.toValue = Float(randonAngle) * Float(Double.pi) / 180.0
         rotateAnimation.duration = 5
         rotateAnimation.repeatCount = 0
