@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     var backgroundImageView: UIImageView!
     var bottleImageView: UIImageView!
     var spinningSoundPlayer: AVAudioPlayer?
-    
+    var startValue: Float = 0.0
+
     lazy var spinButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .gray
@@ -48,18 +49,21 @@ class ViewController: UIViewController {
         spinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    func calculateFromValue() {
+        
+    }
     func handleRotate360DegreesRandom(view: UIView) {
         let rotateAnimation = CABasicAnimation()
-        let randonAngle = arc4random_uniform(2160) + 1080
-        //        rotateView.fromValue = 0
-//        rotateAnimation.fromValue = ????
-        rotateAnimation.toValue = Float(randonAngle) * Float(Double.pi) / 180.0
+        let randomAngle = arc4random_uniform(2160) + 1080
+        rotateAnimation.fromValue = startValue
+        rotateAnimation.toValue = Float(randomAngle) * Float(Double.pi) / 180.0
         rotateAnimation.duration = 5
         rotateAnimation.repeatCount = 0
         rotateAnimation.isRemovedOnCompletion = false
         rotateAnimation.fillMode = kCAFillModeForwards
         rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         view.layer.add(rotateAnimation, forKey: "transform.rotation.z")
+        startValue = rotateAnimation.toValue as! Float
     }
     
     
