@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpinTheBottle/ViewController.swift"
-            timestampString = "581507070.890847"
+            timestampString = "581590984.197111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "handleRotate360DegreesRandom(view:)"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "spinTheBottle()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
