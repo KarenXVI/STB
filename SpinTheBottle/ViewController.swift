@@ -11,7 +11,6 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    var backgroundImageView: UIImageView!
     var bottleImageView: UIImageView!
     var spinningSoundPlayer: AVAudioPlayer?
     var startValue: Float = 0.0
@@ -30,15 +29,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.backgroundImageView = UIImageView(image: #imageLiteral(resourceName: "background"))
         self.bottleImageView = UIImageView(image: #imageLiteral(resourceName: "bottle2"))
         
-        view.addSubview(backgroundImageView)
         view.addSubview(bottleImageView)
         view.addSubview(spinButton)
         setupSpinButton()
         
-        backgroundImageView.frame = self.view.frame
         bottleImageView.center = self.view.center
     }
     
@@ -49,9 +45,6 @@ class ViewController: UIViewController {
         spinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    func calculateFromValue() {
-        
-    }
     func handleRotate360DegreesRandom(view: UIView) {
         let rotateAnimation = CABasicAnimation()
         let randomAngle = arc4random_uniform(2160) + 1080
@@ -60,15 +53,14 @@ class ViewController: UIViewController {
         rotateAnimation.duration = 5
         rotateAnimation.repeatCount = 0
         rotateAnimation.isRemovedOnCompletion = false
-        rotateAnimation.fillMode = kCAFillModeForwards
-        rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        rotateAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotateAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         view.layer.add(rotateAnimation, forKey: "transform.rotation.z")
         startValue = rotateAnimation.toValue as! Float
     }
     
     
     @objc func spinTheBottle(){
-        
         handleRotate360DegreesRandom(view: bottleImageView)
         
         let path = Bundle.main.path(forResource: "spinsound.mp3", ofType: nil)!
