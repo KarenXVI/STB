@@ -13,11 +13,12 @@ import GoogleMobileAds
 class ViewController: UIViewController, GADBannerViewDelegate {
     
     var bottleImageView: UIImageView!
+    var containerView: UIView = UIView()
     var spinningSoundPlayer: AVAudioPlayer?
     var startValue: Float = 0.0
     
     let bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-
+    
     lazy var spinButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .gray
@@ -34,8 +35,12 @@ class ViewController: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
         self.bottleImageView = UIImageView(image: #imageLiteral(resourceName: "bottle2"))
         
-        view.addSubview(bottleImageView)
+        view.addSubview(containerView)
         view.addSubview(spinButton)
+        
+        containerView.frame.size.height = self.view.frame.height
+        containerView.frame.size.width = self.view.frame.width
+        containerView.addSubview(bottleImageView)
         
         setupSpinButton()
         bottleImageView.center = self.view.center
@@ -47,7 +52,20 @@ class ViewController: UIViewController, GADBannerViewDelegate {
         bannerView.load(GADRequest())
         bannerView.delegate = self
         bannerView.backgroundColor = .white
-
+        
+        let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation(sender:)))
+        containerView.addGestureRecognizer(rotationRecognizer)
+        
+    }
+    
+    @objc func handleRotation(sender: UIRotationGestureRecognizer) {
+        guard sender.view != nil else { return }
+        
+        if sender.state == .began || sender.state == .changed {
+            sender.view?.transform = sender.view!.transform.rotated(by: sender.rotation)
+            sender.rotation = 0
+            spinTheBottle()
+        }
     }
     
     func addBannerViewToView(_ bannerView: GADBannerView) {
