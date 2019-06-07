@@ -111,7 +111,7 @@ class ViewController: UIViewController, GADBannerViewDelegate {
         let rotateAnimation = CABasicAnimation()
         let randomAngle = arc4random_uniform(2160) + 1080
         rotateAnimation.fromValue = startValue
-        rotateAnimation.toValue = Float(randomAngle) * Float(Double.pi) / 180.0
+        rotateAnimation.toValue = startValue + Float(randomAngle) * Float(Double.pi) / 180.0
         rotateAnimation.duration = 5
         rotateAnimation.repeatCount = 0
         rotateAnimation.isRemovedOnCompletion = false
@@ -120,7 +120,6 @@ class ViewController: UIViewController, GADBannerViewDelegate {
         view.layer.add(rotateAnimation, forKey: "transform.rotation.z")
         startValue = rotateAnimation.toValue as! Float
     }
-    
     
     @objc func spinTheBottle(){
         handleRotate360DegreesRandom(view: bottleImageView)
